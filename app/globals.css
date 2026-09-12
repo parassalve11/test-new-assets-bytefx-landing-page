@@ -1,0 +1,1134 @@
+@import "tailwindcss";
+
+/* A single pre-paint attribute controls both token overrides and Tailwind's
+   `dark:` variant. See app/layout.jsx and components/ui/theme-toggle.jsx. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ------------------------------------------------------------------
+   ByteFX design tokens.
+   Brand hues sampled from bytefx.com: blue #1356BE, green #4CD201.
+
+   The site is light-only. Every themed value is still a plain custom
+   property here rather than a literal, and the @theme inline block below
+   maps them onto Tailwind's colour names — so `text-ink`, `bg-surface`
+   and `border-line` stay the single source of truth for a colour and a
+   palette change is still a one-line edit.
+
+   There is no dark variant and no `dark:` utility. Do not add one back
+   without restoring the token overrides that were removed with it.
+   ------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+  --container: 1240px;
+
+  /* Brand — `brand` is the readable one (text, icons, hairlines);
+     `brand-solid` is the one that carries white text on a fill. Same hue
+     now that the site is light-only; kept as two names because they mean
+     two different things at the call site. */
+  --brand: #1356be;
+  --brand-700: #0e419a;
+  --brand-100: #d3e2fb;
+  --brand-50: #eaf1fd;
+  --brand-solid: #1356be;
+  --brand-solid-hover: #0e419a;
+
+  /* Green — the CTA colour. `on-go` never flips: text on lime is always
+     near-black. */
+  --go: #4cd201;
+  --go-hover: #44bd01;
+  --go-600: #3ca800;
+  --go-50: #eefce4;
+  --on-go: #01061a;
+
+  /* Neutral ladder */
+  --ink: #01061a;
+  --body: #47536b;
+  --muted: #8794a8;
+  --line: #e3e9f2;
+  --line-strong: #cbd5e5;
+  --alt: #f7f9fc;
+  --sunken: #f1f4f9;
+
+  /* Surfaces. `canvas` is the page itself, `surface` is anything that
+     sits on top of it — cards, drawers, popovers, the navbar. */
+  --canvas: #ffffff;
+  --surface: #ffffff;
+
+  /* Market data semantics */
+  --up: #16a34a;
+  --down: #dc2626;
+
+  /* Advisory / risk-notice tint */
+  --warn-50: #fff4e5;
+  --warn-600: #b45309;
+
+  /* The deliberately dark neutral for scrims and isolated dark panels. The
+     footer now uses the light platinum surface instead. */
+  --shell: #01061a;
+
+  /* Elevation — soft, never harsh */
+  --sh-xs: 0 1px 2px rgba(1, 6, 26, 0.04);
+  --sh-sm: 0 2px 8px rgba(1, 6, 26, 0.05);
+  --sh-md: 0 4px 16px rgba(1, 6, 26, 0.06);
+  --sh-lg: 0 12px 40px rgba(1, 6, 26, 0.08);
+  --sh-xl: 0 28px 70px rgba(1, 6, 26, 0.1);
+  --sh-brand: 0 16px 44px rgba(19, 86, 190, 0.14);
+}
+
+/* Dark platinum: cool graphite surfaces with silver edges. Elevation rises
+   toward lighter metal instead of becoming a stack of flat black panels. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --brand: #78a9f5;
+  --brand-700: #9bc1ff;
+  --brand-100: #263b5d;
+  --brand-50: #17243a;
+  --brand-solid: #1356be;
+  --brand-solid-hover: #0e419a;
+
+  --go: #4cd201;
+  --go-hover: #61e51a;
+  --go-600: #79e33f;
+  --go-50: #18320f;
+
+  --ink: #f0f2f4;
+  --body: #b5bdc8;
+  --muted: #828c99;
+  --line: #2c3239;
+  --line-strong: #424a54;
+  --alt: #15191d;
+  --sunken: #0d1013;
+  --canvas: #111418;
+  --surface: #1b1f24;
+
+  --up: #4ade80;
+  --down: #fb7185;
+  --warn-50: #3a2b13;
+  --warn-600: #f1b965;
+  --shell: #07090c;
+
+  --sh-xs: 0 1px 2px rgba(0, 0, 0, 0.44);
+  --sh-sm: 0 3px 12px rgba(0, 0, 0, 0.42);
+  --sh-md: 0 8px 24px rgba(0, 0, 0, 0.48);
+  --sh-lg: 0 18px 48px rgba(0, 0, 0, 0.52);
+  --sh-xl: 0 30px 76px rgba(0, 0, 0, 0.58);
+  --sh-brand: 0 18px 50px rgba(4, 18, 48, 0.58);
+
+  --frame-top: #252a30;
+  --frame-bottom: rgba(18, 21, 25, 0);
+  --card-blue-mid: #19263c;
+  --card-blue-far: #244c91;
+}
+
+@theme inline {
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: var(--brand);
+  --color-brand-700: var(--brand-700);
+  --color-brand-100: var(--brand-100);
+  --color-brand-50: var(--brand-50);
+  --color-brand-solid: var(--brand-solid);
+  --color-brand-solid-hover: var(--brand-solid-hover);
+
+  --color-go: var(--go);
+  --color-go-hover: var(--go-hover);
+  --color-go-600: var(--go-600);
+  --color-go-50: var(--go-50);
+  --color-on-go: var(--on-go);
+
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-alt: var(--alt);
+  --color-sunken: var(--sunken);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+
+  --color-up: var(--up);
+  --color-down: var(--down);
+  --color-warn-50: var(--warn-50);
+  --color-warn-600: var(--warn-600);
+  --color-shell: var(--shell);
+
+  --shadow-xs: var(--sh-xs);
+  --shadow-sm: var(--sh-sm);
+  --shadow-md: var(--sh-md);
+  --shadow-lg: var(--sh-lg);
+  --shadow-xl: var(--sh-xl);
+  --shadow-brand: var(--sh-brand);
+
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ------------------------------------------------------------------ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+  background: var(--canvas);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16.5px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.auth-grid {
+  background-image:
+    linear-gradient(rgba(19, 86, 190, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(19, 86, 190, 0.055) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+}
+
+/* The auth surface uses platinum rather than flat white: a cool metallic base,
+   a restrained highlight and enough translucency to retain depth behind it. */
+.auth-platinum-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.94) 0%,
+      rgba(229, 228, 226, 0.9) 52%,
+      rgba(245, 247, 250, 0.92) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 -1px 0 rgba(145, 153, 164, 0.12),
+    0 34px 85px -42px rgba(31, 42, 60, 0.58);
+  -webkit-backdrop-filter: blur(28px) saturate(125%);
+  backdrop-filter: blur(28px) saturate(125%);
+}
+
+.auth-platinum-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.95), transparent 34%),
+    linear-gradient(115deg, transparent 34%, rgba(255, 255, 255, 0.2) 48%, transparent 62%);
+  content: "";
+  pointer-events: none;
+}
+
+.auth-platinum-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+:root[data-theme="dark"] .auth-platinum-card {
+  border-color: rgba(229, 228, 226, 0.2);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(48, 53, 61, 0.92) 0%,
+      rgba(22, 26, 32, 0.93) 52%,
+      rgba(38, 41, 46, 0.9) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.035),
+    0 38px 100px -45px rgba(0, 0, 0, 0.96);
+}
+
+:root[data-theme="dark"] .auth-platinum-card::before {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.13), transparent 36%),
+    linear-gradient(115deg, transparent 34%, rgba(229, 228, 226, 0.055) 48%, transparent 62%);
+}
+
+/* Full-width navigation follows the crisp broker-header hierarchy used by the
+   reference while retaining ByteFX's softer platinum surfaces. */
+.site-navbar-shell {
+  border-color: rgba(211, 220, 232, 0.86);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 8px 28px -24px rgba(1, 6, 26, 0.46);
+}
+
+.site-navbar-shell[data-stuck="true"] {
+  border-color: rgba(203, 213, 229, 0.96);
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 13px 34px -24px rgba(1, 6, 26, 0.5);
+}
+
+:root[data-theme="dark"] .site-navbar-shell {
+  border-color: rgba(229, 228, 226, 0.13);
+  background: rgba(10, 13, 16, 0.96);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 12px 34px -25px rgba(0, 0, 0, 0.9);
+}
+
+:root[data-theme="dark"] .site-navbar-shell[data-stuck="true"] {
+  border-color: rgba(229, 228, 226, 0.18);
+  background: rgba(13, 16, 20, 0.97);
+}
+
+.nav-mega-panel {
+  background-image: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--surface) 96%, var(--brand-50)),
+    var(--surface) 62%
+  );
+}
+
+/* Prices must never jitter. */
+.tnum,
+table,
+[data-num] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgba(76, 210, 1, 0.24);
+  color: var(--ink);
+}
+
+/* Utility layer ---------------------------------------------------- */
+@utility container-x {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@utility eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@utility h-section {
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.06;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+/* Display size for the one claim per section that should carry the weight
+   (Elefin's "the number is the headline"). */
+@utility h-display {
+  font-size: clamp(40px, 5.4vw, 76px);
+  line-height: 0.98;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+@utility text-balance-i {
+  text-wrap: balance;
+}
+
+/* ------------------------------------------------------------------
+   ByteFX signature treatments, read off the original landing page:
+   blue→green gradient accents, green pill CTAs, coin-disc asset marks,
+   and cards that fade from white into a brand tint.
+
+   These bake in literal colours rather than tokens, which is fine now
+   that there is one theme — they used to carry a matching set of dark
+   overrides at the foot of this file.
+   ------------------------------------------------------------------ */
+
+/* Headings are SOLID. There is deliberately no `text-gradient-brand`,
+   `text-brand-blue` or `text-brand-green` utility any more — the two-tone
+   accent phrase and the blue→green gradient were removed from every heading
+   on the site, and the utilities were deleted with them so they cannot creep
+   back one span at a time. Set headings in `ink` (or white on a dark ground)
+   and let size and weight carry the hierarchy. Colour goes on CTAs, market
+   data and icons, not on words in a sentence. */
+
+/* Card that fades surface → green tint (accounts, funding). */
+@utility card-fade-green {
+  background-image: linear-gradient(
+    180deg,
+    var(--surface) 0%,
+    var(--surface) 52%,
+    var(--go-50) 100%
+  );
+}
+
+/* Card that fades surface → brand blue with light copy at the foot
+   (market category cards on the original page). */
+@utility card-fade-blue {
+  background-image: linear-gradient(
+    180deg,
+    var(--surface) 0%,
+    var(--card-blue-mid, #f4f8ff) 34%,
+    var(--card-blue-far, #3f6fe0) 78%,
+    var(--brand-solid) 100%
+  );
+}
+
+/* Trading-condition cards share one restrained platinum surface, plus one
+   non-looping highlight supplied by Conditions.jsx. Keeping the stops light
+   lets every card share the same dark-copy treatment. */
+.condition-metal {
+  background-color: var(--metal-mid);
+  background-image:
+    radial-gradient(
+      110% 85% at 8% 0%,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 255, 255, 0) 52%
+    ),
+    linear-gradient(
+      135deg,
+      var(--metal-hi) 0%,
+      var(--metal-mid) 43%,
+      var(--metal-flash) 62%,
+      var(--metal-low) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 0 0 1px rgba(1, 6, 26, 0.07),
+    0 24px 54px -34px rgba(1, 6, 26, 0.38);
+}
+
+.condition-platinum {
+  --metal-hi: #fbfbfa;
+  --metal-mid: #e5e4e2;
+  --metal-flash: #f4f5f4;
+  --metal-low: #d9dcde;
+}
+
+/* Card that fades surface → green tint (accounts, funding). */
+@utility card-fade-green {
+  background-image: linear-gradient(
+    180deg,
+    var(--surface) 0%,
+    var(--surface) 52%,
+    var(--go-50) 100%
+  );
+}
+
+/* Card that fades surface → brand blue with light copy at the foot
+   (market category cards on the original page). */
+@utility card-fade-blue {
+  background-image: linear-gradient(
+    180deg,
+    var(--surface) 0%,
+    var(--card-blue-mid, #f4f8ff) 34%,
+    var(--card-blue-far, #3f6fe0) 78%,
+    var(--brand-solid) 100%
+  );
+}
+
+/* The nested frame Elefin and ByteFX both use: a tinted outer panel
+   with the real card floating inside it. */
+@utility card-frame {
+  border-radius: 26px;
+  background: linear-gradient(
+    180deg,
+    var(--frame-top, #f4f7fc) 0%,
+    var(--frame-bottom, rgba(244, 247, 252, 0)) 100%
+  );
+  padding: 10px;
+}
+
+/* Coin disc — the asset mark container. Soft top light, seated shadow. */
+@utility coin {
+  border-radius: 9999px;
+  box-shadow:
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.75),
+    inset 0 -2px 5px rgba(1, 6, 26, 0.12),
+    0 3px 8px rgba(1, 6, 26, 0.14);
+}
+
+/* Full-bleed saturated band. Breaks the white run so the page has
+   contrast instead of reading as one long light scroll. */
+@utility band-brand {
+  background:
+    radial-gradient(
+      120% 80% at 50% 0%,
+      rgba(76, 210, 1, 0.18) 0%,
+      rgba(76, 210, 1, 0) 55%
+    ),
+    linear-gradient(160deg, #103f9b 0%, #1356be 45%, #0b2f75 100%);
+}
+
+/* Faint engineering grid for use inside band-brand. */
+@utility band-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* The one ambient wash allowed on the canvas — Elefin's silver arc, at 6%. */
+@utility arc-wash {
+  background:
+    radial-gradient(
+      60% 42% at 50% 0%,
+      rgba(19, 86, 190, 0.06) 0%,
+      rgba(19, 86, 190, 0) 70%
+    ),
+    radial-gradient(
+      42% 34% at 84% 12%,
+      rgba(76, 210, 1, 0.05) 0%,
+      rgba(76, 210, 1, 0) 72%
+    );
+}
+
+/* Cool metallic wash for the market gallery. The supplied illustrations are
+   intentionally near-white, so the platinum reads through the surrounding
+   section, card frames and metadata panels rather than tinting the artwork. */
+@utility platinum-surface {
+  background:
+    radial-gradient(
+      70% 60% at 8% 4%,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(255, 255, 255, 0) 68%
+    ),
+    radial-gradient(
+      54% 62% at 94% 92%,
+      rgba(189, 195, 201, 0.5) 0%,
+      rgba(229, 228, 226, 0) 72%
+    ),
+    linear-gradient(
+      132deg,
+      #f8f8f6 0%,
+      #e5e4e2 42%,
+      #f2f3f2 66%,
+      #d9dcde 100%
+    );
+}
+
+/* The metal plate an asset mark stands on. The supplied market icons are dark
+   steel cutouts on transparency: dropped straight onto white they read as
+   stickers, so each one gets its own brushed-platinum well to sit in. This is
+   why the platinum lives here and not on the section — see Markets.jsx. */
+@utility platinum-plate {
+  background:
+    radial-gradient(
+      120% 92% at 50% -6%,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 255, 255, 0) 60%
+    ),
+    radial-gradient(
+      76% 68% at 82% 100%,
+      rgba(150, 159, 170, 0.32) 0%,
+      rgba(150, 159, 170, 0) 70%
+    ),
+    linear-gradient(
+      150deg,
+      #fbfbfa 0%,
+      #ececeb 36%,
+      #f6f6f5 56%,
+      #dbdee0 100%
+    );
+}
+
+/* Brushed-metal micro-grain. Sits over the plate at low opacity so the
+   gradient reads as a milled surface rather than a smooth wash. */
+@utility platinum-grain {
+  background-image: repeating-linear-gradient(
+    114deg,
+    rgba(255, 255, 255, 0.22) 0px,
+    rgba(255, 255, 255, 0) 1.5px,
+    rgba(1, 6, 26, 0.012) 3px,
+    rgba(255, 255, 255, 0) 4.5px
+  );
+}
+
+/* The Markets section ground.
+
+   The market cards are now near-white (see `market-plate`), so the section
+   behind them has to be a shade *cooler and darker* than the cards or the
+   whole bento dissolves into the page. It is still only a wash — a few
+   percent of blue-grey, not a slab — because the page hierarchy is the
+   white / `bg-alt` alternation and a mid-grey band would break it. */
+@utility platinum-wash {
+  background:
+    radial-gradient(
+      68% 48% at 50% 0%,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0) 74%
+    ),
+    linear-gradient(168deg, #f6f8fc 0%, #eef2f8 52%, #e7edf6 100%);
+}
+
+/* The market card surface.
+
+   The supplied marks changed: they used to be dark steel cutouts, which need
+   a metal ground under them or they read as stickers — hence the old brushed
+   platinum plate. The new set is saturated (gold bars, a green NVIDIA chip,
+   blue orbit trails), and colour of that strength on grey goes muddy. So the
+   card is now near-white with a cool bottom edge, and the only tint is a
+   whisper of brand blue pooled in the bottom-right corner, under the mark,
+   which picks up the blue rim-light the artwork already carries. */
+@utility market-plate {
+  background:
+    radial-gradient(
+      88% 76% at 88% 104%,
+      rgba(19, 86, 190, 0.09) 0%,
+      rgba(19, 86, 190, 0) 68%
+    ),
+    linear-gradient(
+      158deg,
+      #ffffff 0%,
+      #fdfeff 38%,
+      #f4f7fc 74%,
+      #eaf0f8 100%
+    );
+}
+
+/* Glowing-effect mask host (Aceternity) */
+.glow {
+  pointer-events: none;
+}
+
+/* Marquee ---------------------------------------------------------- */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee-x var(--marquee-duration, 40s) linear infinite;
+  will-change: transform;
+}
+
+.marquee-host:hover .marquee-track,
+.marquee-track[data-paused="true"] {
+  animation-play-state: paused;
+}
+
+@keyframes tick-up {
+  0% {
+    background-color: rgba(22, 163, 74, 0.12);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes tick-down {
+  0% {
+    background-color: rgba(220, 38, 38, 0.12);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.tick-up {
+  animation: tick-up 0.45s ease-out;
+}
+
+.tick-down {
+  animation: tick-down 0.45s ease-out;
+}
+
+/* Markets ---------------------------------------------------------- */
+
+/* The asset marks drift; they never bounce. 7s so it reads as weight, not
+   as a loading state. Each tile offsets its own phase. */
+@keyframes metal-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0) rotate(-0.7deg);
+  }
+}
+
+.metal-float {
+  animation: metal-float 7s var(--float-delay, 0s) ease-in-out infinite;
+  will-change: transform;
+}
+
+/* The payment composite, used as the Funding band's backdrop.
+
+   It is a rectangular render on transparency, so dropped straight onto the
+   band it ends on four straight edges. This feathers all of them — hardest on
+   the left, where it runs under the headline column and has to be gone before
+   it gets there. */
+.pay-backdrop {
+  --pay-backdrop-mask: radial-gradient(
+    72% 78% at 62% 46%,
+    #000 0%,
+    #000 42%,
+    rgba(0, 0, 0, 0.55) 72%,
+    transparent 100%
+  );
+  mask-image: var(--pay-backdrop-mask);
+  -webkit-mask-image: var(--pay-backdrop-mask);
+}
+
+/* Conditions — the dwell meter.
+
+   The run advances on a timer, so the cursor has to show time passing or the
+   next card arrives unannounced. One bar under the active number, filling
+   across the dwell, is the whole mechanism — it restarts by remounting on the
+   active index rather than by resetting a transform, and it pauses with the
+   run when the reader is hovering or has focus inside the track.
+
+   Not rendered at all under reduced motion, where the run does not advance by
+   itself and a filling bar would be measuring nothing. */
+@keyframes dwell-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.dwell-fill {
+  transform-origin: left center;
+  animation: dwell-fill var(--dwell, 2000ms) linear forwards;
+}
+
+/* Funding — the payment rail ---------------------------------------- */
+
+/* The connector fan is drawn in a viewBox that is stretched vertically to
+   whatever height the six rows come out at, so the stroke has to opt out of
+   that scaling or it thins and thickens with the breakpoint. */
+.rail-path {
+  vector-effect: non-scaling-stroke;
+}
+
+/* Each mark sits on its own white puck. Payment brands ship fixed colours —
+   Visa blue, Apple Pay black, the navy bank glyph — and half of them vanish
+   on a dark ground, so the puck stays white everywhere and the ring
+   around it is what changes. */
+@utility pay-puck {
+  background: #ffffff;
+  box-shadow:
+    inset 0 0 0 1px rgba(1, 6, 26, 0.07),
+    0 2px 8px rgba(1, 6, 26, 0.08);
+}
+
+/* Landing hero ----------------------------------------------------- */
+
+.landing-hero {
+  --landing-hero-image: url("/assets/hero/horse-hero1.png");
+  --landing-hero-title: #263342;
+  --landing-hero-copy: #455468;
+  --landing-hero-glass: rgba(255, 255, 255, 0.62);
+  --landing-hero-glass-hover: rgba(255, 255, 255, 0.82);
+  --landing-hero-glass-border: rgba(28, 39, 54, 0.1);
+  --landing-hero-proof-value: #2a3646;
+  --landing-hero-proof-label: #657287;
+  isolation: isolate;
+  background: #e8eef4;
+}
+
+:root[data-theme="dark"] .landing-hero {
+  --landing-hero-image: url("/assets/hero/horse-hero.png");
+  --landing-hero-title: #f4f6f8;
+  --landing-hero-copy: rgba(232, 237, 243, 0.78);
+  --landing-hero-glass: rgba(255, 255, 255, 0.085);
+  --landing-hero-glass-hover: rgba(255, 255, 255, 0.15);
+  --landing-hero-glass-border: rgba(255, 255, 255, 0.17);
+  --landing-hero-proof-value: #ffffff;
+  --landing-hero-proof-label: rgba(236, 240, 245, 0.66);
+  background: #081019;
+}
+
+.landing-hero-art {
+  background-image: var(--landing-hero-image);
+  background-position: center;
+  background-size: cover;
+  transform: scale(1.01);
+}
+
+.landing-hero-scrim {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(244, 247, 250, 0.98) 0%,
+      rgba(244, 247, 250, 0.9) 28%,
+      rgba(244, 247, 250, 0.56) 45%,
+      rgba(244, 247, 250, 0.12) 62%,
+      transparent 76%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(235, 241, 247, 0.24) 0%,
+      transparent 34%,
+      rgba(225, 232, 239, 0.2) 100%
+    );
+}
+
+:root[data-theme="dark"] .landing-hero-scrim {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5, 10, 15, 0.98) 0%,
+      rgba(5, 10, 15, 0.9) 28%,
+      rgba(5, 10, 15, 0.58) 47%,
+      rgba(5, 10, 15, 0.12) 64%,
+      transparent 78%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(3, 7, 11, 0.36) 0%,
+      transparent 36%,
+      rgba(2, 6, 10, 0.35) 100%
+    );
+}
+
+.landing-hero-glow {
+  background: radial-gradient(
+    38% 34% at 24% 72%,
+    rgba(76, 210, 1, 0.07) 0%,
+    rgba(76, 210, 1, 0) 74%
+  );
+}
+
+.landing-hero-title-soft {
+  color: var(--landing-hero-title);
+}
+
+.landing-hero-lead {
+  color: var(--landing-hero-copy);
+}
+
+.landing-hero-eyebrow,
+.landing-hero-proof,
+.landing-hero-secondary {
+  border: 1px solid var(--landing-hero-glass-border);
+  background: var(--landing-hero-glass);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    0 12px 34px -22px rgba(15, 23, 42, 0.42);
+  -webkit-backdrop-filter: blur(16px) saturate(135%);
+  backdrop-filter: blur(16px) saturate(135%);
+}
+
+.landing-hero-eyebrow {
+  color: var(--landing-hero-copy);
+}
+
+.landing-hero-secondary {
+  color: var(--landing-hero-title);
+}
+
+.landing-hero-secondary:hover {
+  border-color: var(--landing-hero-glass-border);
+  background: var(--landing-hero-glass-hover);
+  color: var(--brand);
+}
+
+.landing-hero-puck {
+  border: 1px solid rgba(1, 6, 26, 0.06);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.1);
+}
+
+.landing-hero-puck svg {
+  color: #1356be;
+}
+
+.landing-hero-proof-value {
+  color: var(--landing-hero-proof-value);
+}
+
+.landing-hero-proof-label {
+  color: var(--landing-hero-proof-label);
+}
+
+@media (max-width: 47.999rem) {
+  .landing-hero-art {
+    background-position: 72% center;
+  }
+
+  .landing-hero-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(244, 247, 250, 0.96) 0%,
+      rgba(244, 247, 250, 0.9) 48%,
+      rgba(244, 247, 250, 0.7) 67%,
+      rgba(236, 241, 246, 0.42) 100%
+    );
+  }
+
+  :root[data-theme="dark"] .landing-hero-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 9, 14, 0.96) 0%,
+      rgba(4, 9, 14, 0.9) 48%,
+      rgba(4, 9, 14, 0.72) 68%,
+      rgba(3, 7, 11, 0.5) 100%
+    );
+  }
+}
+
+
+/* ------------------------------------------------------------------
+   Hero — the blue band.
+
+   The hero used to be a full-bleed photograph. It now carries the same
+   treatment as the "ByteFX Enhanced Trading Tools" card in the showcase:
+   one blue gradient plus a faint white grid. The gradient stops are the
+   card's exact stops — `TradingShowcase.module.css` `.toolsCard` — so the
+   two read as the same surface at two sizes. Change one, change both.
+
+   Why it is better than the photograph: the aurora was a licensed stock
+   frame that had nothing to do with the product, cost ~440 KB on the LCP,
+   and needed a heavy scrim to keep white type legible. The gradient is a
+   few bytes, is on-brand by construction, and leaves the whole frame free
+   for the orbit.
+   ------------------------------------------------------------------ */
+
+/* The band itself. */
+@utility hero-tools {
+  background: linear-gradient(150deg, #2f66d1 0%, #0c2c78 100%);
+}
+
+/* The grid, at the card's 42px pitch and the card's 16% white so the
+   texture is identical. Masked to an ellipse rather than the card's
+   horizontal fade: full bleed, the grid would otherwise cut off hard
+   against the navbar at the top and the white Ticker at the foot. */
+@utility hero-tools-grid {
+  opacity: 0.55;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.16) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.16) 1px,
+      transparent 1px
+    );
+
+  background-size: 42px 42px;
+
+  mask-image: radial-gradient(
+    112% 84% at 50% 32%,
+    #000 0%,
+    #000 44%,
+    transparent 88%
+  );
+}
+
+/* The scrim, in two parts, because one gradient cannot do both jobs.
+
+   The radial pulls the middle of the frame down so the H1 and the lead
+   clear contrast over the lighter top-left end of the gradient. The linear
+   darkens top and bottom: the top so the navbar's white pill has something
+   to sit on, the bottom so the band can meet the white Ticker without a
+   bright seam. Tinted `#04123a` rather than near-black — a neutral scrim
+   greys the blue out and the band stops matching the tools card. */
+@utility hero-scrim {
+  background:
+    radial-gradient(
+      64% 56% at 50% 46%,
+      rgba(4, 18, 58, 0.54) 0%,
+      rgba(4, 18, 58, 0.24) 56%,
+      rgba(4, 18, 58, 0) 84%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(3, 13, 44, 0.46) 0%,
+      rgba(3, 13, 44, 0.04) 26%,
+      rgba(3, 13, 44, 0.14) 62%,
+      rgba(3, 13, 44, 0.62) 100%
+    );
+}
+
+/* A single green bloom low in the frame. The band is otherwise entirely
+   blue, and `--go` is the CTA colour — this is what stops the primary
+   button reading as the only green thing on the screen. */
+@utility hero-bloom {
+  background: radial-gradient(
+    46% 42% at 50% 104%,
+    rgba(76, 210, 1, 0.22) 0%,
+    rgba(76, 210, 1, 0) 70%
+  );
+}
+
+/* Compact proof surfaces below the hero CTAs. */
+@utility hero-proof {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.055)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 12px 30px rgba(1, 6, 26, 0.18);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.funding-glass {
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.045)),
+    radial-gradient(90% 120% at 8% 0%, rgba(255, 255, 255, 0.1), transparent 55%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 28px 70px -34px rgba(1, 6, 26, 0.62);
+  -webkit-backdrop-filter: blur(22px) saturate(145%);
+  backdrop-filter: blur(22px) saturate(145%);
+}
+
+/* Dark-platinum overrides for utilities that contain literal light colours.
+   Saturated blue/green bands intentionally have no override. */
+:root[data-theme="dark"] .arc-wash {
+  background:
+    radial-gradient(60% 42% at 50% 0%, rgba(154, 174, 199, 0.08), transparent 70%),
+    radial-gradient(42% 34% at 84% 12%, rgba(76, 210, 1, 0.055), transparent 72%);
+}
+
+:root[data-theme="dark"] .platinum-wash {
+  background:
+    radial-gradient(68% 48% at 50% 0%, rgba(255, 255, 255, 0.055), transparent 74%),
+    linear-gradient(168deg, #1b1f24 0%, #14181c 52%, #101317 100%);
+}
+
+:root[data-theme="dark"] .platinum-surface {
+  background:
+    radial-gradient(70% 60% at 8% 4%, rgba(255, 255, 255, 0.08), transparent 68%),
+    radial-gradient(54% 62% at 94% 92%, rgba(126, 136, 148, 0.16), transparent 72%),
+    linear-gradient(132deg, #262b31 0%, #191d22 42%, #21262c 66%, #121519 100%);
+}
+
+:root[data-theme="dark"] .platinum-plate {
+  background:
+    radial-gradient(120% 92% at 50% -6%, rgba(255, 255, 255, 0.09), transparent 60%),
+    radial-gradient(76% 68% at 82% 100%, rgba(0, 0, 0, 0.4), transparent 70%),
+    linear-gradient(150deg, #2a3037 0%, #1c2127 36%, #252a31 56%, #13171c 100%);
+}
+
+:root[data-theme="dark"] .platinum-grain {
+  background-image: repeating-linear-gradient(
+    114deg,
+    rgba(255, 255, 255, 0.07) 0,
+    rgba(255, 255, 255, 0) 1.5px,
+    rgba(0, 0, 0, 0.07) 3px,
+    rgba(255, 255, 255, 0) 4.5px
+  );
+}
+
+:root[data-theme="dark"] .market-plate {
+  background:
+    radial-gradient(88% 76% at 88% 104%, rgba(76, 120, 190, 0.18), transparent 68%),
+    linear-gradient(158deg, #272c32 0%, #1d2228 38%, #191e24 74%, #12161b 100%);
+}
+
+:root[data-theme="dark"] .condition-platinum {
+  --metal-hi: #2b3036;
+  --metal-mid: #20252b;
+  --metal-flash: #353b43;
+  --metal-low: #14181d;
+}
+
+:root[data-theme="dark"] .condition-metal {
+  background-image:
+    radial-gradient(110% 85% at 8% 0%, rgba(255, 255, 255, 0.1), transparent 52%),
+    linear-gradient(
+      135deg,
+      var(--metal-hi) 0%,
+      var(--metal-mid) 43%,
+      var(--metal-flash) 62%,
+      var(--metal-low) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 28px 58px -32px rgba(0, 0, 0, 0.72);
+}
+
+:root[data-theme="dark"] .pay-puck {
+  box-shadow:
+    inset 0 0 0 1px rgba(1, 6, 26, 0.08),
+    0 8px 22px rgba(0, 0, 0, 0.34);
+}
+
+@keyframes hero-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--hero-rise-y, 20px));
+  }
+}
+
+.hero-rise {
+  animation: hero-rise-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--hero-rise-delay, 0s);
+}
+
+/* Non-negotiable: reduced motion kills every reveal, counter, marquee. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .metal-float {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .hero-rise {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+}

@@ -1,0 +1,113 @@
+.orbit-container {
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.orbit-scaling-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.orbit-scaling-container--responsive {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+}
+
+.orbit-rotation-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-origin: center;
+}
+
+.orbit-path-svg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.orbit-item {
+  position: absolute;
+  user-select: none;
+  will-change: offset-distance, transform;
+}
+
+.orbit-item > div {
+  width: 100%;
+  height: 100%;
+}
+
+.orbit-center-content {
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbit-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Hero variant.
+
+   The orbiting things are the site's own coin discs, which already carry
+   their own gradient, rim light and drop shadow — so this adds a glass ring
+   *behind* the disc rather than a puck around it. On the dark hero band the
+   coin alone reads as a sticker; the ring is what gives it somewhere to sit.
+
+   The orbit sits behind the copy and is `aria-hidden` in the component, so
+   nothing here needs to clear a contrast bar. */
+.hero-orbit .orbit-item {
+  display: grid;
+  place-items: center;
+  pointer-events: auto;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.16),
+    0 0 0 9px rgba(255, 255, 255, 0.035),
+    0 18px 44px rgba(1, 6, 26, 0.45);
+  backdrop-filter: blur(6px);
+}
+
+.hero-orbit .orbit-item > div {
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.hero-orbit-token {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 220ms ease;
+}
+
+/* A small hover response makes the moving marks feel tactile without turning
+   decorative, continuously moving objects into misleading click targets. */
+@media (hover: hover) and (pointer: fine) {
+  .hero-orbit .orbit-item:hover .hero-orbit-token {
+    transform: translateY(-3px) scale(1.08);
+    filter: drop-shadow(0 9px 14px rgba(1, 6, 26, 0.3));
+  }
+}
+
+@media (max-width: 767px) {
+  /* Nine moving backdrop blurs are needlessly expensive on a phone; the
+     translucent fill keeps the same look against this fixed blue surface. */
+  .hero-orbit .orbit-item {
+    backdrop-filter: none;
+  }
+}

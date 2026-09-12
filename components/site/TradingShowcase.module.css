@@ -1,0 +1,1040 @@
+.section {
+  --showcase-surface-rgb: 255 255 255;
+  background: var(--alt);
+  padding: 18px 24px 16px;
+}
+
+:global(html[data-theme="dark"]) .section {
+  --showcase-surface-rgb: 27 31 36;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.grid {
+  container-type: inline-size;
+  display: grid;
+  width: 100%;
+  max-width: 1512px;
+  margin-inline: auto;
+  gap: 16px;
+}
+
+.card {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+
+  box-shadow:
+    0 8px 30px rgba(15, 23, 42, 0.045),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+
+  isolation: isolate;
+
+  font-family: var(--font-sans);
+
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 22px 46px rgba(15, 23, 42, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+:global(html[data-theme="dark"]) .card {
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+:global(html[data-theme="dark"]) .card:hover {
+  box-shadow:
+    0 24px 52px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.11);
+}
+
+.card h3,
+.card p {
+  margin: 0;
+}
+
+/* =========================================================
+   IMAGE ANIMATION
+   ========================================================= */
+
+.traderImage,
+.toolsImage,
+.competitionImage,
+.copyImage {
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 420ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+
+.card:hover .traderImage,
+.card:hover .toolsImage,
+.card:hover .competitionImage,
+.card:hover .copyImage {
+  transform: scale(1.045);
+  filter: drop-shadow(0 16px 28px rgba(15, 23, 42, 0.18));
+}
+
+/* =========================================================
+   LINKS / CTA
+   ========================================================= */
+
+.linkAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 16px;
+
+  color: #08a561;
+
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1;
+
+  text-decoration: none;
+}
+
+.linkAction svg {
+  width: 16px;
+  height: 16px;
+
+  flex: 0 0 auto;
+
+  transition: transform 180ms ease;
+}
+
+.linkAction:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.linkAction:hover svg {
+  transform: translateX(4px);
+}
+
+.linkActionLarge {
+  margin-top: 24px;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.linkActionLarge svg {
+  width: 19px;
+  height: 19px;
+}
+
+.linkActionLight {
+  color: #fff;
+}
+
+.linkActionLight:hover {
+  text-decoration-color: rgba(255, 255, 255, 0.75);
+}
+
+/* =========================================================
+   MAIN HERO CARD
+   ========================================================= */
+
+.mainCard {
+  min-height: 520px;
+}
+
+.mainCopy {
+  position: absolute;
+
+  top: 54px;
+  left: 34px;
+
+  z-index: 4;
+}
+
+.mainTitle {
+  color: var(--ink);
+
+  max-width: 440px;
+
+  font-size: clamp(38px, 10vw, 52px);
+  font-weight: 700;
+
+  letter-spacing: -0.033em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.mainLead {
+  margin-top: 18px !important;
+
+  max-width: 320px;
+
+  color: var(--body);
+
+  font-size: 16px;
+  font-weight: 400;
+
+  line-height: 1.58;
+  text-wrap: pretty;
+}
+
+/* =========================================================
+   CANDLE BACKGROUND
+   ========================================================= */
+
+.candles {
+  position: absolute;
+
+  top: 20px;
+  right: 8px;
+
+  z-index: 0;
+
+  width: 55%;
+  height: 285px;
+
+  overflow: visible;
+
+  fill: rgba(7, 168, 98, 0.13);
+  stroke: rgba(7, 168, 98, 0.15);
+  stroke-width: 1.5px;
+}
+
+/* =========================================================
+   HERO TRADER
+   ========================================================= */
+
+.traderImage {
+  position: absolute;
+
+  right: -132px;
+  bottom: -8px;
+
+  z-index: 2;
+
+  width: 515px;
+  max-width: none;
+  height: auto;
+}
+
+/* =========================================================
+   TOOLS CARD
+   ========================================================= */
+
+.toolsCard {
+  min-height: 330px;
+
+  background:
+    linear-gradient(
+      150deg,
+      #2f66d1 0%,
+      #0c2c78 100%
+    );
+}
+
+.featureCopy {
+  position: relative;
+
+  z-index: 4;
+
+  max-width: 360px;
+  padding: 38px 28px;
+}
+
+.featureCopy h3,
+.promoCopy h3 {
+  color: var(--ink);
+
+  font-size: clamp(27px, 7vw, 32px);
+  font-weight: 700;
+
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.featureCopy p,
+.promoCopy p {
+  margin-top: 14px;
+
+  color: var(--body);
+
+  font-size: 15px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.toolsCard .featureCopy h3 {
+  color: #fff;
+}
+
+.toolsCard .featureCopy p {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* =========================================================
+   TOOLS DEVICE IMAGE
+   Full laptop + mobile remains inside card.
+   ========================================================= */
+
+.toolsImage {
+  position: absolute;
+
+  right: 10px;
+  bottom: 8px;
+
+  z-index: 1;
+
+  width: 490px;
+  max-width: none;
+  height: auto;
+}
+
+/* =========================================================
+   TOOLS GRID
+   ========================================================= */
+
+.toolsGrid {
+  position: absolute;
+
+  top: 32px;
+  right: 0;
+  bottom: 0;
+
+  width: 58%;
+
+  opacity: 0.55;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.16) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.16) 1px,
+      transparent 1px
+    );
+
+  background-size: 42px 42px;
+
+  mask-image:
+    linear-gradient(
+      90deg,
+      transparent,
+      #000 24%,
+      #000 82%,
+      transparent
+    );
+}
+
+/* =========================================================
+   TREND BADGE
+   ========================================================= */
+
+.trendBadge {
+  position: absolute;
+
+  top: 140px;
+  right: 24px;
+
+  z-index: 3;
+
+  display: grid;
+
+  width: 52px;
+  height: 52px;
+
+  place-items: center;
+
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #157c68,
+      #3fc58e
+    );
+
+  color: #fff;
+
+  box-shadow:
+    0 14px 28px rgba(20, 135, 106, 0.19);
+
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.trendBadge svg {
+  width: 28px;
+  height: 28px;
+}
+
+.card:hover .trendBadge {
+  transform:
+    translateY(-3px)
+    scale(1.08);
+}
+
+/* =========================================================
+   PROMO ROW
+   ========================================================= */
+
+.promoRow {
+  display: grid;
+  gap: 16px;
+}
+
+.promoCard {
+  min-height: 310px;
+}
+
+.promoCopy {
+  position: relative;
+
+  z-index: 4;
+
+  width: 100%;
+  max-width: 360px;
+  padding: 34px 30px;
+}
+
+.promoCopy p {
+  max-width: 275px;
+}
+
+/* =========================================================
+   COMPETITION
+   ========================================================= */
+
+.competitionCard {
+  background:
+    linear-gradient(
+      150deg,
+      #55d100 0%,
+      #1f8f00 100%
+    );
+}
+
+.competitionCard .promoCopy h3 {
+  color: #fff;
+}
+
+.competitionCard .promoCopy p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.competitionImage,
+.copyImage {
+  position: absolute;
+
+  z-index: 1;
+
+  max-width: none;
+  height: auto;
+}
+
+/* Full trophy visible */
+
+.competitionImage {
+  right: 4px;
+  bottom: 4px;
+
+  width: 350px;
+}
+
+/* =========================================================
+   COPY TRADING
+   ========================================================= */
+
+.copyImage {
+  right: 12px;
+  bottom: 4px;
+
+  width: 220px;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (min-width: 680px) {
+  .section {
+    padding: 24px 48px 28px;
+  }
+
+  .grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+  }
+
+  .mainCard,
+  .promoRow {
+    grid-column: 1 / -1;
+  }
+
+  .mainCopy {
+    top: 66px;
+    left: 56px;
+  }
+
+  .mainTitle {
+    font-size: 52px;
+  }
+
+  .traderImage {
+    right: -50px;
+    width: 590px;
+  }
+
+  .mainCard {
+    min-height: 540px;
+  }
+
+  .toolsCard {
+    grid-column: 1 / -1;
+    min-height: 390px;
+  }
+
+  .toolsImage {
+    right: 12px;
+    bottom: 8px;
+
+    width: 500px;
+  }
+
+  .promoRow {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+  }
+
+  .promoCard {
+    min-height: 340px;
+  }
+
+  .competitionImage {
+    right: 6px;
+    bottom: 4px;
+
+    width: 365px;
+  }
+
+  .copyImage {
+    right: 16px;
+    bottom: 5px;
+
+    width: 228px;
+  }
+}
+
+/* The artwork becomes wider than its card in the tablet band. Keep the copy
+   on a quiet white field and stack the promos so larger type never competes
+   with an illustration for the same narrow column. */
+@media (min-width: 680px) and (max-width: 1099px) {
+  .mainCard::after {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgb(var(--showcase-surface-rgb) / 1) 0%,
+      rgb(var(--showcase-surface-rgb) / 0.98) 40%,
+      rgb(var(--showcase-surface-rgb) / 0.82) 54%,
+      rgb(var(--showcase-surface-rgb) / 0) 76%
+    );
+    content: "";
+    pointer-events: none;
+  }
+
+  .mainCopy {
+    top: 62px;
+    width: 48%;
+    max-width: 330px;
+  }
+
+  .mainTitle {
+    font-size: 48px;
+  }
+
+  .mainLead {
+    max-width: 280px;
+  }
+
+  .traderImage {
+    right: -90px;
+    width: 510px;
+  }
+
+  .promoRow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .promoCopy {
+    max-width: 390px;
+  }
+}
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 1100px) {
+  .section {
+    padding: 28px 80px 40px;
+  }
+
+  .grid {
+    /*
+     * Existing layout remains the same:
+     *
+     * LEFT  = main hero
+     * RIGHT = tools
+     * BOTTOM = competition + copy trading
+     *
+     * Overall height increased to give the assets
+     * enough room without cutting them.
+     */
+
+    grid-template-columns:
+      820fr 682fr;
+
+    grid-template-rows:
+      clamp(360px, 33cqi, 500px)
+      clamp(260px, 21cqi, 320px);
+
+    gap: 20px;
+  }
+
+  /* =======================================================
+     MAIN HERO
+     ======================================================= */
+
+  .mainCard {
+    grid-column: 1;
+    grid-row: 1;
+
+    min-height: 0;
+  }
+
+  .toolsCard {
+    grid-column: 2;
+    grid-row: 1;
+
+    min-height: 0;
+  }
+
+  .promoRow {
+    display: grid;
+
+    grid-column: 1 / -1;
+    grid-row: 2;
+
+    grid-template-columns:
+      1fr 1fr;
+
+    gap: 20px;
+
+    min-height: 0;
+  }
+
+  .promoCard {
+    min-height: 0;
+  }
+
+  .mainCopy {
+    top: 4.5cqi;
+    left: 3.75cqi;
+
+    width: 56%;
+  }
+
+  .mainTitle {
+    font-size:
+      clamp(
+        42px,
+        3.4cqi,
+        54px
+      );
+
+    font-weight: 700;
+  }
+
+  .mainLead {
+    margin-top: 1.12cqi !important;
+
+    max-width: 29cqi;
+
+    font-size:
+      clamp(
+        15px,
+        1.08cqi,
+        17px
+      );
+
+    line-height: 1.58;
+  }
+
+  .candles {
+    top: 1.4cqi;
+    right: 0.8cqi;
+
+    width: 23.5cqi;
+    height: 18cqi;
+  }
+
+  .traderImage {
+    top: 1.2cqi;
+
+    right: auto;
+    bottom: auto;
+
+    left: 23.25cqi;
+
+    width: 41.1cqi;
+  }
+
+  /* =======================================================
+     FEATURE COPY
+     ======================================================= */
+
+  .featureCopy {
+    position: absolute;
+
+    top: 2.8cqi;
+    left: 2.4cqi;
+
+    width: 45%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .featureCopy h3,
+  .promoCopy h3 {
+    font-size:
+      clamp(
+        24px,
+        1.9cqi,
+        30px
+      );
+
+    font-weight: 700;
+  }
+
+  .featureCopy p,
+  .promoCopy p {
+    margin-top: 0.8cqi;
+
+    font-size:
+      clamp(
+        13px,
+        1cqi,
+        15px
+      );
+
+    line-height: 1.55;
+  }
+
+  /* =======================================================
+     ACTION LINKS
+     ======================================================= */
+
+  .linkAction {
+    margin-top: 1.3cqi;
+
+    gap: 0.6cqi;
+
+    font-size:
+      clamp(
+        13px,
+        0.95cqi,
+        15px
+      );
+
+    font-weight: 700;
+  }
+
+  .linkAction svg {
+    width: 1.05cqi;
+    height: 1.05cqi;
+  }
+
+  .linkActionLarge {
+    margin-top: 1.8cqi;
+
+    font-size:
+      clamp(
+        14px,
+        1.15cqi,
+        19px
+      );
+  }
+
+  .linkActionLarge svg {
+    width: 1.25cqi;
+    height: 1.25cqi;
+  }
+
+  /* =======================================================
+     TOOLS CARD GRID
+     ======================================================= */
+
+  .toolsGrid {
+    top: 2.5cqi;
+
+    width: 22cqi;
+
+    background-size:
+      3cqi 3cqi;
+  }
+
+  /* =======================================================
+     LAPTOP + PHONE
+     ======================================================= */
+
+  .toolsImage {
+    /*
+     * Important:
+     * no negative bottom value anymore.
+     *
+     * This keeps the complete laptop base
+     * and mobile phone inside the card.
+     */
+
+    right: 1.1cqi;
+    bottom: 0.7cqi;
+
+    width: 28.8cqi;
+  }
+
+  /* =======================================================
+     TREND BADGE
+     ======================================================= */
+
+  .trendBadge {
+    top: 9.05cqi;
+    right: 2.35cqi;
+
+    width: 3.45cqi;
+    height: 3.45cqi;
+
+    border-radius: 0.72cqi;
+  }
+
+  .trendBadge svg {
+    width: 1.85cqi;
+    height: 1.85cqi;
+  }
+
+  /* =======================================================
+     PROMO COPY
+     ======================================================= */
+
+  .promoCopy {
+    position: absolute;
+
+    top: 1.75cqi;
+    left: 2.1cqi;
+
+    width: 48%;
+    padding: 0;
+  }
+
+  .promoCopy p {
+    margin-top: 1.1cqi;
+
+    max-width: none;
+  }
+
+  /* =======================================================
+     TROPHY
+     ======================================================= */
+
+  .competitionImage {
+    /*
+     * Previously it extended outside the card.
+     * It now sits completely inside.
+     */
+
+    top: auto;
+
+    right: 0.9cqi;
+    bottom: 0.55cqi;
+
+    width: 24.7cqi;
+  }
+
+  /* =======================================================
+     COPY CARD
+     ======================================================= */
+
+  .copyCard .promoCopy {
+    left: 2cqi;
+  }
+
+  .copyImage {
+    /*
+     * Portrait source remains proportional.
+     * No squashing / scale transform.
+     */
+
+    top: auto;
+
+    right: 1.1cqi;
+    bottom: 0.55cqi;
+
+    width: 15.2cqi;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 679px) {
+  /* Mobile cards use natural vertical flow so every illustration gets its own
+     space below the copy. Desktop positioning starts at 680px and is left
+     completely unchanged. */
+  .mainCard,
+  .toolsCard,
+  .promoCard {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+  }
+
+  .mainCopy {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    padding: 44px 22px 0;
+  }
+
+  .mainTitle {
+    font-size:
+      clamp(
+        34px,
+        10.5vw,
+        44px
+      );
+  }
+
+  .mainLead {
+    max-width: 270px;
+  }
+
+  .traderImage {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    align-self: center;
+    width: min(430px, 116vw);
+    margin-top: 12px;
+  }
+
+  .featureCopy,
+  .promoCopy {
+    padding-right: 22px;
+    padding-left: 22px;
+  }
+
+  .featureCopy p,
+  .promoCopy p {
+    max-width: 245px;
+  }
+
+  .toolsCard {
+    min-height: 0;
+  }
+
+  .toolsImage {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    align-self: center;
+    width: min(420px, calc(100% - 24px));
+    margin: 14px auto 16px;
+  }
+
+  .promoCard {
+    min-height: 0;
+  }
+
+  .competitionImage {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    align-self: center;
+    width: min(330px, calc(100% - 20px));
+    margin: 12px auto 14px;
+  }
+
+  .copyImage {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    align-self: center;
+    width: min(280px, calc(100% - 42px));
+    margin: 12px auto 14px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .linkAction,
+  .linkAction svg,
+  .card,
+  .traderImage,
+  .toolsImage,
+  .competitionImage,
+  .copyImage,
+  .trendBadge {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  .card:hover .traderImage,
+  .card:hover .toolsImage,
+  .card:hover .competitionImage,
+  .card:hover .copyImage {
+    transform: none;
+  }
+
+  .card:hover .trendBadge {
+    transform: none;
+  }
+}

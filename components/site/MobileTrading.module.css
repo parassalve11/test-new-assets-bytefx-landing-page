@@ -1,0 +1,257 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(ellipse at 9% -9%, #a2d8ff 0%, transparent 32%),
+    radial-gradient(ellipse at 64% 27%, #83d2ff 0%, transparent 36%),
+    radial-gradient(ellipse at 102% 68%, #76c8ff 0%, transparent 34%),
+    radial-gradient(ellipse at 43% 103%, #54b3ff 0%, transparent 35%),
+    linear-gradient(120deg, #0750a8 0%, #146bd1 47%, #339bfa 78%, #0760c4 100%);
+  scroll-margin-top: 90px;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 650px; /* Ensures items don't collide on shorter displays */
+}
+
+.section::before,
+.section::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(16px);
+}
+
+.section::before {
+  width: 110%;
+  height: 35%;
+  left: 18%;
+  bottom: 10%;
+  border-bottom: 28px solid #b6eaff55;
+  transform: rotate(-24deg);
+  box-shadow: 0 24px 35px #65c2ff55;
+}
+
+.section::after {
+  width: 115%;
+  height: 23%;
+  left: -9%;
+  bottom: -15%;
+  border-top: 9px solid #b8ecff80;
+  box-shadow: 0 -14px 35px #a6e5ff55;
+}
+
+.stage {
+  position: relative;
+  max-width: 1480px;
+  height: 100%;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+}
+
+.content {
+  position: relative;
+  width: 50%;
+  padding: 0 0 0 5%;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  font-size: clamp(11px, 1vw, 15px);
+  letter-spacing: .28em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(46px, 5.2vw, 82px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -.045em;
+}
+
+.title span {
+  color: #88e3ff;
+}
+
+.description {
+  max-width: 540px;
+  margin: 20px 0 0;
+  font-size: clamp(14px, 1.2vw, 18px);
+  line-height: 1.45;
+  font-weight: 400;
+  text-wrap: pretty;
+}
+
+.stores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.storeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid #b4c0d3;
+  border-radius: 6px;
+  background: #000;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  transition: background .2s, border-color .2s;
+}
+
+.storeBadge:hover {
+  background: #10213a;
+  border-color: #fff;
+}
+
+.storeBadge:focus-visible,
+.qrLink:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
+
+.storeIcon {
+  width: clamp(20px, 1.6vw, 24px);
+  height: clamp(22px, 1.8vw, 28px);
+  flex-shrink: 0;
+}
+
+.storeEyebrow,
+.storeName {
+  display: block;
+  white-space: nowrap;
+}
+
+.storeEyebrow {
+  font-size: clamp(8px, .75vw, 10px);
+  line-height: 1.1;
+}
+
+.storeName {
+  font-size: clamp(14px, 1.25vw, 17px);
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.downloadDetails {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2vw, 32px);
+  margin-top: 24px;
+}
+
+.qrLink {
+  flex-shrink: 0;
+  color: #fff;
+  text-decoration: none;
+}
+
+.qr {
+  width: clamp(90px, 8vw, 120px);
+  height: auto;
+  padding: 6px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.qrTitle,
+.qrCaption {
+  display: block;
+}
+
+.qrTitle {
+  margin-top: 6px;
+  font-size: clamp(11px, .95vw, 14px);
+  font-weight: 500;
+}
+
+.qrCaption {
+  margin-top: 2px;
+  font-size: clamp(9px, .75vw, 11px);
+}
+
+.rating {
+  width: clamp(160px, 15vw, 230px);
+  padding-left: clamp(14px, 1.5vw, 22px);
+  border-left: 1px solid #ffffffb3;
+}
+
+.ratingImage {
+  width: 100%;
+  height: auto;
+  mask-image: url("/assets/mobile/rating.png");
+  mask-mode: luminance;
+  mask-size: 100% 100%;
+}
+
+.phone {
+  position: absolute;
+  width: clamp(380px, 44vw, 650px);
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.phoneImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .section { height: 100vh; min-height: 580px; }
+  .content { width: 52%; padding-left: 4%; }
+  .title { font-size: clamp(38px, 5vw, 56px); }
+  .description { font-size: 14px; margin-top: 14px; }
+  .stores { gap: 8px; margin-top: 18px; }
+  .storeBadge { gap: 6px; padding: 5px 10px; }
+  .storeName { font-size: 14px; }
+  .downloadDetails { gap: 16px; margin-top: 18px; }
+  .rating { width: 150px; padding-left: 12px; }
+  .phone { width: 44%; right: 1%; }
+}
+
+@media (max-width: 767px) {
+  .section { height: auto; min-height: 100vh; min-height: 100dvh; }
+  .stage { display: block; height: auto; }
+  .content { width: 100%; padding: 60px 20px 0; }
+  .eyebrow { font-size: 11px; margin-bottom: 10px; }
+  .title { font-size: clamp(36px, 9vw, 54px); }
+  .description { max-width: 100%; margin-top: 14px; font-size: 14px; line-height: 1.5; }
+  .stores { gap: 8px; margin-top: 20px; }
+  .storeBadge { gap: 6px; padding: 6px 10px; }
+  .storeIcon { width: 18px; height: 22px; }
+  .storeName { font-size: 15px; }
+  .downloadDetails { gap: 16px; margin-top: 20px; }
+  .qr { width: 95px; }
+  .qrTitle { font-size: 11px; }
+  .qrCaption { font-size: 9px; }
+  .rating { width: 160px; padding-left: 12px; }
+  .phone { 
+    position: relative; 
+    width: min(90%, 420px); 
+    margin: 24px auto 0; 
+    top: auto; 
+    right: auto; 
+    transform: none; 
+  }
+}
+
+@media (max-width: 359px) {
+  .content { padding-inline: 16px; }
+  .stores { gap: 6px; }
+  .storeBadge { padding: 5px 8px; gap: 5px; }
+  .storeName { font-size: 13px; }
+  .storeEyebrow { font-size: 8px; }
+  .storeIcon { width: 16px; }
+  .downloadDetails { gap: 10px; }
+}
