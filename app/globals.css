@@ -749,7 +749,8 @@ summary:focus-visible,
 /* Landing hero ----------------------------------------------------- */
 
 .landing-hero {
-  --landing-hero-image: url("/assets/hero/horse-hero1.png");
+  --landing-hero-image: url("/assets/hero/horse-hero18.png");
+
   --landing-hero-title: #263342;
   --landing-hero-copy: #455468;
   --landing-hero-glass: rgba(255, 255, 255, 0.62);
@@ -762,7 +763,8 @@ summary:focus-visible,
 }
 
 :root[data-theme="dark"] .landing-hero {
-  --landing-hero-image: url("/assets/hero/horse-hero.png");
+  --landing-hero-image: url("/assets/hero/horse-hero78.png");
+  
   --landing-hero-title: #f4f6f8;
   --landing-hero-copy: rgba(232, 237, 243, 0.78);
   --landing-hero-glass: rgba(255, 255, 255, 0.085);
